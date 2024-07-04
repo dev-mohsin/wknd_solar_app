@@ -14,6 +14,13 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp.router(
       routerConfig: router,
+      builder: (context, child) {
+       FocusScopeNode currentFocus = FocusScope.of(context);
+        if (!currentFocus.hasPrimaryFocus) {
+          currentFocus.unfocus();
+        }
+        return child!;
+      },
       debugShowCheckedModeBanner: false,
       title: AppString.appName,
       theme: AppLightTheme().themeData,

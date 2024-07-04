@@ -6,7 +6,6 @@ import 'package:wknd_app/gen/fonts.gen.dart';
 class AppLightTheme extends AppTheme {
   @override
   ThemeData get themeData => ThemeData(
-        fontFamily: FontFamily.anton,
         colorScheme: ColorScheme.fromSeed(
           primary: primary,
           seedColor: primary,
@@ -44,13 +43,25 @@ class AppLightTheme extends AppTheme {
             ),
             iconTheme: IconThemeData(color: primary)),
         inputDecorationTheme: InputDecorationTheme(
-          border: OutlineInputBorder(borderRadius: BorderRadius.circular(12.0), borderSide: const BorderSide(color: Colors.transparent, width: 0.0)),
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(6.0), borderSide: const BorderSide(color: Colors.transparent, width: 0.0)),
           fillColor: cardColor,
           outlineBorder: BorderSide(color: secondary, width: 0.0),
           contentPadding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 0.0),
           filled: true,
           enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(6.0), borderSide: BorderSide(color: primary, width: 1.0)),
-          hintStyle: textTheme.bodyMedium?.copyWith(color: const Color(0xffCECECE), fontSize: 16.0),
+          hintStyle: textTheme.bodyMedium?.copyWith(color: const Color(0xff837f77), fontSize: 16.0),
+        ),
+        dropdownMenuTheme: DropdownMenuThemeData(
+          textStyle: textTheme.bodyMedium?.copyWith(color: primary),
+          inputDecorationTheme: InputDecorationTheme(
+            border: OutlineInputBorder(borderRadius: BorderRadius.circular(6.0), borderSide: const BorderSide(color: Colors.transparent, width: 0.0)),
+            fillColor: cardColor,
+            outlineBorder: BorderSide(color: secondary, width: 0.0),
+            contentPadding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 0.0),
+            filled: true,
+            enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(6.0), borderSide: BorderSide(color: primary, width: 1.0)),
+            hintStyle: textTheme.bodyMedium?.copyWith(color: const Color(0xff837f77), fontSize: 16.0),
+          ),
         ),
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ButtonStyle(
@@ -84,7 +95,7 @@ class AppLightTheme extends AppTheme {
 
   @override
   TextTheme get textTheme => TextTheme(
-        displayLarge: TextStyle(fontSize: 30.0, fontWeight: FontWeight.bold, color: primary, fontFamily: 'Raleway-Bold'),
+        displayLarge: TextStyle(fontSize: 30.0, color: primary, fontFamily: FontFamily.anton),
         displayMedium: const TextStyle(fontSize: 18.0, fontWeight: FontWeight.w600),
         displaySmall: const TextStyle(fontSize: 16.0, fontWeight: FontWeight.w500),
         titleLarge: TextStyle(fontSize: 16.0, fontWeight: FontWeight.w600, color: primary),
