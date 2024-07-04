@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wknd_app/core/components/app_button.dart';
 import 'package:wknd_app/core/components/app_check_box.dart';
 import 'package:wknd_app/core/components/gap.dart';
 import 'package:wknd_app/core/constant/app_string.dart';
 import 'package:wknd_app/core/extensions/e_context_extensions.dart';
+import 'package:wknd_app/feature/auth/presentation/bloc/check_box_cubit.dart';
 
 class SignupPage extends StatefulWidget {
   const SignupPage({super.key});
@@ -15,6 +17,8 @@ class SignupPage extends StatefulWidget {
 class _SignupPageState extends State<SignupPage> {
   final List<String> items = [AppString.referring, AppString.selling, AppString.buying];
   final List<String> hearingItems = ['I was referred', 'An ads', 'Other'];
+  final CheckBoxCubit checkBoxCubit = CheckBoxCubit();
+  bool val = false;
 
   @override
   Widget build(BuildContext context) {
@@ -62,11 +66,24 @@ class _SignupPageState extends State<SignupPage> {
                   AppString.whatServicesAreYouInInterestedIn,
                   style: context.labelLarge?.copyWith(fontSize: 18.0, fontWeight: FontWeight.w400),
                 ),
-                Row(
-                  children: List.generate(
-                    items.length,
-                    (index) => AppCheckBox(label: items[index], onChanged: (value) {}),
-                  ),
+                BlocBuilder<CheckBoxCubit, List<bool>>(
+                  bloc: checkBoxCubit,
+                  builder: (context, state) {
+                    return Row(
+                      children: List.generate(
+                        items.length,
+                        (index) {
+                          return AppCheckBox(
+                            label: items[index],
+                            onChanged: (value) {
+                              checkBoxCubit.onChanged(value!, index);
+                            },
+                            value: state[index],
+                          );
+                        },
+                      ),
+                    );
+                  },
                 ),
                 const Gap(10.0),
                 TextFormField(
