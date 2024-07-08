@@ -1,11 +1,16 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+import 'package:wknd_app/config/router/route_path.dart';
 import 'package:wknd_app/core/components/app_button.dart';
 import 'package:wknd_app/core/components/app_check_box.dart';
+import 'package:wknd_app/core/components/app_image.dart';
 import 'package:wknd_app/core/components/gap.dart';
 import 'package:wknd_app/core/constant/app_string.dart';
 import 'package:wknd_app/core/extensions/e_context_extensions.dart';
 import 'package:wknd_app/feature/auth/presentation/bloc/check_box_cubit.dart';
+import 'package:wknd_app/gen/assets.gen.dart';
 
 class SignupPage extends StatefulWidget {
   const SignupPage({super.key});
@@ -30,6 +35,8 @@ class _SignupPageState extends State<SignupPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                const Gap(60.0),
+                Center(child: AppImage.assets(assetName: Assets.png.appLogo.path, width: 100.0, height: 100.0)),
                 const Gap(20.0),
                 Center(
                   child: Text(
@@ -37,7 +44,7 @@ class _SignupPageState extends State<SignupPage> {
                     style: context.displayLarge?.copyWith(fontSize: 24.0),
                   ),
                 ),
-                const Gap(10.0),
+                const Gap(20.0),
                 TextFormField(
                   decoration: const InputDecoration(
                     hintText: AppString.firstName,
@@ -53,6 +60,12 @@ class _SignupPageState extends State<SignupPage> {
                 TextFormField(
                   decoration: const InputDecoration(
                     hintText: AppString.email,
+                  ),
+                ),
+                const Gap(10.0),
+                TextFormField(
+                  decoration: const InputDecoration(
+                    hintText: AppString.password,
                   ),
                 ),
                 const Gap(10.0),
@@ -75,9 +88,7 @@ class _SignupPageState extends State<SignupPage> {
                         (index) {
                           return AppCheckBox(
                             label: items[index],
-                            onChanged: (value) {
-                              checkBoxCubit.onChanged(value!, index);
-                            },
+                            onChanged: (value) => checkBoxCubit.onChanged(value!, index),
                             value: state[index],
                           );
                         },
@@ -138,6 +149,20 @@ class _SignupPageState extends State<SignupPage> {
                   height: 50.0,
                   onPressed: () {},
                   child: const Text(AppString.signUp),
+                ),
+                const Gap(20.0),
+                RichText(
+                  text: TextSpan(
+                    text: AppString.haveAnAccount,
+                    style: context.titleLarge?.copyWith(fontSize: 14.0, color: context.onSecondary),
+                    children: [
+                      TextSpan(
+                        text: AppString.signIn,
+                        style: context.titleLarge?.copyWith(fontSize: 14.0),
+                        recognizer: TapGestureRecognizer()..onTap = () => context.go(RoutePath.login),
+                      ),
+                    ],
+                  ),
                 ),
                 const Gap(20.0),
               ],

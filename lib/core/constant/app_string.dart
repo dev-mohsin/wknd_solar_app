@@ -15,4 +15,11 @@ class AppString {
   static const String signUp = 'Sign Up';
   static const String signIn = 'Sign In';
   static const String message = 'Message';
+  static const String password = 'Password';
+  static const String haveAnAccount = 'Already have an account? ';
+  static const String forgotPassword = 'Forgot Password?';
+  static const String dontHaveAccount = 'Don\'t have an account? ';
+  static const String welcomeToWKNDApp = 'Welcome to WKND App';
+  static const String home = 'Home';
+  static const String refer = 'Refer';
 }
