@@ -44,6 +44,26 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         await _firestore.collection(AppKey.users).doc(userCredential.user!.uid).set(user.toJson());
       }
       emit(SignUpSuccess(user));
+    } on FirebaseAuthException catch (e, s) {
+      String message = 'Failed to register';
+      switch (e.code) {
+        case 'invalid-email':
+          message = 'Invalid email';
+          break;
+        case 'email-already-in-use':
+          message = 'Email already in use';
+          break;
+        case 'operation-not-allowed':
+          message = 'Operation not allowed';
+          break;
+        case 'weak-password':
+          message = 'Weak password';
+          break;
+        case 'network-request-failed':
+          message = 'Network request failed';
+          break;
+      }
+      emit(SignUpFailure(message));
     } catch (e, s) {
       debugPrint('AuthBloc._onSignup: error: $e stack: ${s}');
       emit(SignUpFailure(e.toString()));
@@ -60,6 +80,29 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       final DocumentSnapshot<Map<String, dynamic>> userDoc = await _firestore.collection(AppKey.users).doc(userCredential.user!.uid).get();
       final UserModel user = UserModel.fromJson(userDoc.data()!);
       emit(SignInSuccess(user));
+    } on FirebaseAuthException catch (e, s) {
+      String message = 'Failed to login';
+      switch (e.code) {
+        case 'invalid-email':
+          message = 'Invalid email';
+          break;
+        case 'user-disabled':
+          message = 'User disabled';
+          break;
+        case 'user-not-found':
+          message = 'User not found';
+          break;
+        case 'wrong-password':
+          message = 'Wrong password';
+          break;
+        case 'network-request-failed':
+          message = 'Network request failed';
+          break;
+        case 'too-many-requests':
+          message = 'Too many requests';
+          break;
+      }
+      emit(SignInFailure(message));
     } catch (e, s) {
       debugPrint('AuthBloc._onSignIn: error: $e stack: ${s}');
       emit(SignInFailure(e.toString()));
