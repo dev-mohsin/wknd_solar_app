@@ -45,6 +45,12 @@ dependencies:
 #  State management
   flutter_bloc: ^8.1.6
 
+#  Firebase
+  firebase_core: ^3.2.0
+  firebase_auth: ^5.1.2
+  cloud_firestore: ^5.1.0
+
+
 
 #  Assets
   logger: ^2.3.0

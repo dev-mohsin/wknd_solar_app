@@ -1,4 +1,4 @@
-package com.weekend.solar.wknd_app
+package com.weekend.solar
 
 import io.flutter.embedding.android.FlutterActivity
 

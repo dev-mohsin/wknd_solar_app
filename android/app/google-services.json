@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "276428757326",
+    "project_id": "wknd-solar",
+    "storage_bucket": "wknd-solar.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:276428757326:android:823860729d45bc32ffe61f",
+        "android_client_info": {
+          "package_name": "com.weekend.solar"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyButzFX-VcW90xRSu63kSL4EhK0W310i6g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
