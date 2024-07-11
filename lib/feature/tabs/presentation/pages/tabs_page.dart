@@ -1,5 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:line_icons/line_icons.dart';
+import 'package:wknd_app/config/router/route_path.dart';
 import 'package:wknd_app/core/constant/app_string.dart';
 import 'package:wknd_app/feature/home/presentation/pages/home_page.dart';
 import 'package:wknd_app/feature/refer/presentation/pages/refer_page.dart';
@@ -18,6 +21,18 @@ class _TabsPageState extends State<TabsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text(AppString.appName),
+        actions: [
+          IconButton(
+            icon: Icon(LineIcons.alternateSignOut),
+            onPressed: () {
+              FirebaseAuth.instance.signOut();
+              context.go(RoutePath.login);
+            },
+          ),
+        ],
+      ),
       body: pages[currentPageIndex],
       bottomNavigationBar: NavigationBar(
         onDestinationSelected: (int index) {

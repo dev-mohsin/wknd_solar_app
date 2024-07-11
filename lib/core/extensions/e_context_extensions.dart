@@ -109,4 +109,17 @@ extension BuildContextEntension<T> on BuildContext {
       builder: (context) => Padding(padding: EdgeInsets.only(top: 0.0, bottom: MediaQuery.of(context).viewInsets.bottom), child: child),
     );
   }
+
+  // showSnackBar
+  void showSnackBar({
+    required final String message,
+    final SnackBarAction? action,
+    final Duration duration = const Duration(seconds: 3),
+  }) {
+    ScaffoldMessenger.of(this).showSnackBar(SnackBar(
+      content: Text(message),
+      action: action,
+      duration: duration,
+    ));
+  }
 }

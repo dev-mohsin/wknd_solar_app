@@ -18,6 +18,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
   AuthBloc() : super(AuthInitial()) {
     on<SignUp>(_onSignup);
+    on<SignIn>(_onSignIn);
   }
 
   FutureOr<void> _onSignup(SignUp event, Emitter<AuthState> emit) async {
@@ -46,6 +47,22 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     } catch (e, s) {
       debugPrint('AuthBloc._onSignup: error: $e stack: ${s}');
       emit(SignUpFailure(e.toString()));
+    }
+  }
+
+  FutureOr<void> _onSignIn(SignIn event, Emitter<AuthState> emit) async {
+    try {
+      emit(AuthLoading());
+      final UserCredential userCredential = await _firebaseAuth.signInWithEmailAndPassword(
+        email: event.email,
+        password: event.password,
+      );
+      final DocumentSnapshot<Map<String, dynamic>> userDoc = await _firestore.collection(AppKey.users).doc(userCredential.user!.uid).get();
+      final UserModel user = UserModel.fromJson(userDoc.data()!);
+      emit(SignInSuccess(user));
+    } catch (e, s) {
+      debugPrint('AuthBloc._onSignIn: error: $e stack: ${s}');
+      emit(SignInFailure(e.toString()));
     }
   }
 }

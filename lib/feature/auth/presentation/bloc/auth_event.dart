@@ -14,5 +14,5 @@ final class SignIn extends AuthEvent {
   final String email;
   final String password;
 
-  SignIn(this.email, this.password);
+  SignIn({required this.email, required this.password});
 }

@@ -10,6 +10,7 @@ import 'package:wknd_app/core/components/gap.dart';
 import 'package:wknd_app/core/constant/app_string.dart';
 import 'package:wknd_app/core/extensions/e_context_extensions.dart';
 import 'package:wknd_app/core/mixin/validator.dart';
+import 'package:wknd_app/feature/auth/data/models/user.dart';
 import 'package:wknd_app/feature/auth/presentation/bloc/auth_bloc.dart';
 import 'package:wknd_app/feature/auth/presentation/bloc/check_box_cubit.dart';
 import 'package:wknd_app/gen/assets.gen.dart';
@@ -64,6 +65,8 @@ class _SignupPageState extends State<SignupPage> with Validator {
                   ),
                   const Gap(20.0),
                   TextFormField(
+                    initialValue: 'John',
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
                     validator: validateFirstName,
                     onSaved: (value) => data['firstName'] = value!,
                     decoration: const InputDecoration(
@@ -72,6 +75,8 @@ class _SignupPageState extends State<SignupPage> with Validator {
                   ),
                   const Gap(10.0),
                   TextFormField(
+                    initialValue: 'Doe',
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
                     validator: validateLastName,
                     onSaved: (value) => data['lastName'] = value!,
                     decoration: const InputDecoration(
@@ -80,6 +85,8 @@ class _SignupPageState extends State<SignupPage> with Validator {
                   ),
                   const Gap(10.0),
                   TextFormField(
+                    initialValue: 'john@gmail.com',
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
                     validator: validateEmail,
                     onSaved: (value) => data['email'] = value!,
                     decoration: const InputDecoration(
@@ -88,6 +95,8 @@ class _SignupPageState extends State<SignupPage> with Validator {
                   ),
                   const Gap(10.0),
                   TextFormField(
+                    initialValue: '12121212',
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
                     validator: validatePassword,
                     onSaved: (value) => data['password'] = value!,
                     decoration: const InputDecoration(
@@ -96,6 +105,8 @@ class _SignupPageState extends State<SignupPage> with Validator {
                   ),
                   const Gap(10.0),
                   TextFormField(
+                    initialValue: '1234567890',
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
                     decoration: const InputDecoration(
                       hintText: AppString.phoneNumber,
                     ),
@@ -111,7 +122,7 @@ class _SignupPageState extends State<SignupPage> with Validator {
                       return Row(
                         children: List.generate(
                           items.length,
-                              (index) {
+                          (index) {
                             return AppCheckBox(
                               label: items[index],
                               onChanged: (value) => checkBoxCubit.onChanged(value!, index),
@@ -124,6 +135,8 @@ class _SignupPageState extends State<SignupPage> with Validator {
                   ),
                   const Gap(10.0),
                   TextFormField(
+                    initialValue: '1000',
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
                     validator: validateFirstName,
                     onSaved: (value) => data['howMuch'] = value!,
                     decoration: const InputDecoration(
@@ -154,6 +167,8 @@ class _SignupPageState extends State<SignupPage> with Validator {
                   ),
                   const Gap(4.0),
                   TextFormField(
+                    initialValue: 'Steve',
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
                     validator: validateFirstName,
                     onSaved: (value) => data['whoReferred'] = value!,
                     decoration: const InputDecoration(
@@ -162,6 +177,8 @@ class _SignupPageState extends State<SignupPage> with Validator {
                   ),
                   const Gap(10.0),
                   TextFormField(
+                    initialValue: 'Smith',
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
                     validator: validateLastName,
                     onSaved: (value) => data['refFirstName'] = value!,
                     decoration: const InputDecoration(
@@ -170,6 +187,8 @@ class _SignupPageState extends State<SignupPage> with Validator {
                   ),
                   const Gap(10.0),
                   TextFormField(
+                    initialValue: 'I was referred by Steve Smith',
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
                     maxLines: 4,
                     decoration: const InputDecoration(
                       hintText: AppString.message,
@@ -179,15 +198,34 @@ class _SignupPageState extends State<SignupPage> with Validator {
                   const Gap(40.0),
                   BlocConsumer<AuthBloc, AuthState>(
                     listener: (context, state) {
-                      // TODO: implement listener
+                      if (state is SignUpFailure) {
+                        context.showSnackBar(message: state.message);
+                      }
+                      if (state is SignUpSuccess) {
+                        context.showSnackBar(message: 'Sign up successful');
+                        context.go(RoutePath.tabs);
+
+                      }
                     },
                     builder: (context, state) {
                       return AppButton(
+                        isProcessing: state is AuthLoading,
                         height: 50.0,
                         onPressed: () {
                           if (_formKey.currentState!.validate()) {
                             _formKey.currentState!.save();
                             print(data);
+                            final user = UserModel(
+                              firstName: data['firstName'] ?? '',
+                              lastName: data['lastName'] ?? '',
+                              email: data['email'] ?? '',
+                              phoneNumber: data['phoneNumber'] ?? '',
+                              howMuch: data['howMuch'] ?? '',
+                              refFirstName: data['refFirstName'] ?? '',
+                              refLastName: data['refLastName'] ?? '',
+                              message: data['message'] ?? '',
+                            );
+                            context.read<AuthBloc>().add(SignUp(user: user, password: data['password']!));
                           }
                         },
                         child: const Text(AppString.signUp),
@@ -195,18 +233,19 @@ class _SignupPageState extends State<SignupPage> with Validator {
                     },
                   ),
                   const Gap(20.0),
-                  RichText(
-                    text: TextSpan(
-                      text: AppString.haveAnAccount,
-                      style: context.titleLarge?.copyWith(fontSize: 14.0, color: context.onSecondary),
-                      children: [
-                        TextSpan(
-                          text: AppString.signIn,
-                          style: context.titleLarge?.copyWith(fontSize: 14.0),
-                          recognizer: TapGestureRecognizer()
-                            ..onTap = () => context.go(RoutePath.login),
-                        ),
-                      ],
+                  Center(
+                    child: RichText(
+                      text: TextSpan(
+                        text: AppString.haveAnAccount,
+                        style: context.titleLarge?.copyWith(fontSize: 14.0, color: context.onSecondary),
+                        children: [
+                          TextSpan(
+                            text: AppString.signIn,
+                            style: context.titleLarge?.copyWith(fontSize: 14.0),
+                            recognizer: TapGestureRecognizer()..onTap = () => context.go(RoutePath.login),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                   const Gap(20.0),
