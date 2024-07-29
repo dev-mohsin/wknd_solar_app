@@ -18,7 +18,7 @@ final GoRouter router = GoRouter(
   routes: [
     GoRoute(
       path: '/',
-      pageBuilder: (context, state) => CupertinoPage(key: state.pageKey, child: const LoginPage()),
+      pageBuilder: (context, state) => CupertinoPage(key: state.pageKey, child: const TabsPage()),
     ),
     GoRoute(
       path: RoutePath.signUp,

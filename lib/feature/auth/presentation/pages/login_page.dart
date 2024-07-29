@@ -32,7 +32,7 @@ class _LoginPageState extends State<LoginPage> with Validator {
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.only(bottom: 40.0),
         child: RichText(
           textAlign: TextAlign.center,
           text: TextSpan(
@@ -42,7 +42,10 @@ class _LoginPageState extends State<LoginPage> with Validator {
               TextSpan(
                 text: AppString.signUp,
                 style: context.titleLarge?.copyWith(fontSize: 14.0),
-                recognizer: TapGestureRecognizer()..onTap = () => context.go(RoutePath.signUp),
+                recognizer: TapGestureRecognizer()..onTap = () {
+                  debugPrint('_LoginPageState.build: ');
+                    context.push(RoutePath.signUp);
+                },
               ),
             ],
           ),

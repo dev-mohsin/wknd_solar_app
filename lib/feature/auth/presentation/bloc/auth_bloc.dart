@@ -81,6 +81,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       final UserModel user = UserModel.fromJson(userDoc.data()!);
       emit(SignInSuccess(user));
     } on FirebaseAuthException catch (e, s) {
+      debugPrint('AuthBloc._onSignIn: error: $e stack: $s');
       String message = 'Failed to login';
       switch (e.code) {
         case 'invalid-email':
