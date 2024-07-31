@@ -22,4 +22,32 @@ class AppString {
   static const String welcomeToWKNDApp = 'Welcome to WKND';
   static const String home = 'Home';
   static const String refer = 'Refer';
+  static const String bookASolarConsultation = 'Book a Solar Consultation';
+  static const String takeFirstStep = 'Take the first step towards a brighter, more sustainable future';
+  static const String theirName = 'Their Name';
+  static const String theirEmail = 'Their Email';
+  static const String theirPhoneNumber = 'Their Phone Number';
+  static const String theirAddress = 'Their Address';
+  static const String city = 'City';
+  static const String state = 'State';
+  static const String zipCode = 'Zip Code';
+  static const String utilityBill = 'Utility Bill';
+  static const String addressLine1 = 'Address Line 1';
+  static const String addressLine2 = 'Address Line 2';
+  static const String notes = 'Notes';
+  static const String areTheyTheHomeOwner = 'Are they the homeowner?';
+  static const String yes = 'Yes';
+  static const String no = 'No';
+  static const String dateOfConsultation = 'Date of Consultation';
+  static const String timeOfConsultation = 'Time of Consultation';
+  static const String submit = 'Submit';
+  static const String country = 'Country';
+  static const String selectCountry = 'Select Country';
+  static const String search = 'Search';
+  static const String addAFile = 'Add a file';
+  static const String gallery = 'Gallery';
+  static const String camera = 'Camera';
+  static const String pdf = 'PDF';
+
+  static String yourName = 'Your Name';
 }

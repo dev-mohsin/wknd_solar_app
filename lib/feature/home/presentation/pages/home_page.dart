@@ -65,7 +65,7 @@ class _ProgressCard extends StatelessWidget {
           child: ListTile(
             contentPadding: EdgeInsets.symmetric(horizontal: 8.0),
             title: const Text('John Doe'),
-            subtitle: const Text('Welcome to WKND'),
+            subtitle: const Text('Refer No: 1234567890'),
             trailing: Card(
               color: context.primary,
               child: Padding(
@@ -101,7 +101,7 @@ class _CompleteTab extends StatelessWidget {
           child: ListTile(
             contentPadding: EdgeInsets.symmetric(horizontal: 8.0),
             title: const Text('John Doe'),
-            subtitle: const Text('Welcome to WKND'),
+            subtitle: const Text('Refer No: 1234567890'),
             trailing: Card(
               color: Colors.green,
               child: Padding(

@@ -39,6 +39,13 @@ dependencies:
 #  Network image
   cached_network_image: ^3.3.1
 
+#  Assets
+  country_picker: ^2.0.26
+  dotted_border: ^2.1.0
+  image_picker: ^1.1.2
+  file_picker: ^8.0.6
+  intl: ^0.19.0
+
 #  Navigation
   go_router: ^14.2.0
 
