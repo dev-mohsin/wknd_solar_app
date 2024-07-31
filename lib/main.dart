@@ -5,6 +5,7 @@ import 'package:wknd_app/config/router/app_router.dart';
 import 'package:wknd_app/config/theme/app_light_theme.dart';
 import 'package:wknd_app/core/constant/app_string.dart';
 import 'package:wknd_app/feature/auth/presentation/bloc/auth_bloc.dart';
+import 'package:wknd_app/feature/refer/presentation/bloc/refer_bloc.dart';
 import 'package:wknd_app/firebase_options.dart';
 
 Future<void> main() async {
@@ -23,6 +24,7 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider<AuthBloc>(create: (context) => AuthBloc()),
+        BlocProvider<ReferBloc>(create: (context) => ReferBloc()),
       ],
       child: MaterialApp.router(
         routerConfig: router,

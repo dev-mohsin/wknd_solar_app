@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wknd_app/core/extensions/e_context_extensions.dart';
+import 'package:wknd_app/feature/refer/presentation/bloc/refer_bloc.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -15,6 +17,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
   void initState() {
     super.initState();
     _tabController = TabController(length: 2, vsync: this);
+    context.read<ReferBloc>().add(FetchRefer());
   }
 
   @override
@@ -52,32 +55,45 @@ class _ProgressCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.separated(
-      separatorBuilder: (context, index) => const SizedBox(height: 8.0),
-      itemCount: 10,
-      padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
-      itemBuilder: (context, index) {
-        return Container(
-          decoration: BoxDecoration(
-            color: context.primary.withOpacity(0.1),
-            borderRadius: BorderRadius.circular(16.0),
-          ),
-          child: ListTile(
-            contentPadding: EdgeInsets.symmetric(horizontal: 8.0),
-            title: const Text('John Doe'),
-            subtitle: const Text('Refer No: 1234567890'),
-            trailing: Card(
-              color: context.primary,
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  'In Progress',
-                  style: context.titleLarge?.copyWith(fontSize: 12.0, color: context.onPrimary),
+    return BlocBuilder<ReferBloc, ReferState>(
+      builder: (context, state) {
+        if (state is ReferLoading) return const Center(child: CircularProgressIndicator());
+        if (state is ReferFailure) return Center(child: Text(state.message));
+        if (state is ReferLoadedSuccess && state.refers.isEmpty) return const Center(child: Text('No refers found'));
+        if (state is ReferLoadedSuccess) {
+          final refers = state.refers.where((refer) => refer.status == 'In Progress').toList();
+          if (refers.isEmpty) return const Center(child: Text('No In Progress refers found'));
+          return ListView.separated(
+            separatorBuilder: (context, index) => const SizedBox(height: 8.0),
+            itemCount: refers.length,
+            padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
+            itemBuilder: (context, index) {
+              final refer = refers[index];
+              return Container(
+                decoration: BoxDecoration(
+                  color: context.primary.withOpacity(0.1),
+                  borderRadius: BorderRadius.circular(16.0),
                 ),
-              ),
-            ),
-          ),
-        );
+                child: ListTile(
+                  contentPadding: EdgeInsets.symmetric(horizontal: 8.0),
+                  title: Text(refer.theirName),
+                  subtitle: Text(refer.referralId),
+                  trailing: Card(
+                    color: context.primary,
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        refer.status,
+                        style: context.titleLarge?.copyWith(fontSize: 12.0, color: context.onPrimary),
+                      ),
+                    ),
+                  ),
+                ),
+              );
+            },
+          );
+        }
+        return const SizedBox.shrink();
       },
     );
   }
@@ -88,32 +104,45 @@ class _CompleteTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.separated(
-      separatorBuilder: (context, index) => const SizedBox(height: 8.0),
-      itemCount: 10,
-      padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
-      itemBuilder: (context, index) {
-        return Container(
-          decoration: BoxDecoration(
-            color: context.primary.withOpacity(0.1),
-            borderRadius: BorderRadius.circular(16.0),
-          ),
-          child: ListTile(
-            contentPadding: EdgeInsets.symmetric(horizontal: 8.0),
-            title: const Text('John Doe'),
-            subtitle: const Text('Refer No: 1234567890'),
-            trailing: Card(
-              color: Colors.green,
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  'Completed',
-                  style: context.titleLarge?.copyWith(fontSize: 12.0, color: context.onPrimary),
+    return BlocBuilder<ReferBloc, ReferState>(
+      builder: (context, state) {
+        if (state is ReferLoading) return const Center(child: CircularProgressIndicator());
+        if (state is ReferFailure) return Center(child: Text(state.message));
+        if (state is ReferLoadedSuccess && state.refers.isEmpty) return const Center(child: Text('No refers found'));
+        if (state is ReferLoadedSuccess) {
+          final refers = state.refers.where((refer) => refer.status == 'Completed').toList();
+          if (refers.isEmpty) return const Center(child: Text('No Completed refers found'));
+          return ListView.separated(
+            separatorBuilder: (context, index) => const SizedBox(height: 8.0),
+            itemCount: refers.length,
+            padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
+            itemBuilder: (context, index) {
+              final refer = refers[index];
+              return Container(
+                decoration: BoxDecoration(
+                  color: context.primary.withOpacity(0.1),
+                  borderRadius: BorderRadius.circular(16.0),
                 ),
-              ),
-            ),
-          ),
-        );
+                child: ListTile(
+                  contentPadding: EdgeInsets.symmetric(horizontal: 8.0),
+                  title: Text(refer.theirName, style: context.titleLarge?.copyWith(fontSize: 16.0)),
+                  subtitle: Text('Refer Id: ${refer.referralId}'),
+                  trailing: Card(
+                    color: Colors.green,
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        refer.status,
+                        style: context.titleLarge?.copyWith(fontSize: 12.0, color: context.onPrimary),
+                      ),
+                    ),
+                  ),
+                ),
+              );
+            },
+          );
+        }
+        return const SizedBox.shrink();
       },
     );
   }

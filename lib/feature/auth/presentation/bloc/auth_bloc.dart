@@ -4,7 +4,6 @@ import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:meta/meta.dart';
 import 'package:wknd_app/core/constant/app_key.dart';
 import 'package:wknd_app/feature/auth/data/models/user.dart';
 

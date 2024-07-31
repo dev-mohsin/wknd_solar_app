@@ -42,11 +42,11 @@ mixin Validator {
     return null;
   }
 
-  bool validatePhoneNumber(String phoneNumber) {
-    if (phoneNumber.isEmpty || phoneNumber.length < 11 || phoneNumber.length > 11) {
-      return false;
+  String validatePhoneNumber(String? phoneNumber) {
+    if (phoneNumber!.isEmpty || phoneNumber.length < 11 || phoneNumber.length > 11) {
+      return 'Enter a valid Phone Number';
     }
-    return true;
+    return '';
   }
 
   String? validateHowMuch(String? value) {
@@ -71,6 +71,96 @@ mixin Validator {
   }
 
   String? validateRefLastName(String? value) {
+    if (value!.isEmpty) {
+      return 'This field is required';
+    }
+    return null;
+  }
+
+  String? validateTheirName(String? value) {
+    if (value!.isEmpty) {
+      return 'This field is required';
+    }
+    return null;
+  }
+
+  String? validateTheirEmail(String? email) {
+    if (email == null || email.trim().isEmpty) {
+      return 'Enter a valid Email';
+    } else {
+      bool isValidEmail = RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+", caseSensitive: false).hasMatch(email);
+      if (isValidEmail) {
+        return null;
+      } else {
+        return 'Enter a valid Email';
+      }
+    }
+  }
+
+  String? validateTheirPhoneNumber(String? phoneNumber) {
+    if (phoneNumber!.isEmpty || phoneNumber.length < 11 || phoneNumber.length > 11) {
+      return 'Enter a valid Phone Number';
+    }
+    return null;
+  }
+
+  String? validateTheirAddress(String? value) {
+    if (value!.isEmpty) {
+      return 'This field is required';
+    }
+    return null;
+  }
+
+  String? validateCity(String? value) {
+    if (value!.isEmpty) {
+      return 'This field is required';
+    }
+    return null;
+  }
+
+  String? validateState(String? value) {
+    if (value!.isEmpty) {
+      return 'This field is required';
+    }
+    return null;
+  }
+
+  String? validateZipCode(String? value) {
+    if (value!.isEmpty) {
+      return 'This field is required';
+    }
+    return null;
+  }
+
+  String? validateUtilityBill(String? value) {
+    if (value!.isEmpty) {
+      return 'This field is required';
+    }
+    return null;
+  }
+
+  String? validateAddressLine1(String? value) {
+    if (value!.isEmpty) {
+      return 'This field is required';
+    }
+    return null;
+  }
+
+  String? validateNotes(String? value) {
+    if (value!.isEmpty) {
+      return 'This field is required';
+    }
+    return null;
+  }
+
+  String? validateDateOfConsultation(String? value) {
+    if (value!.isEmpty) {
+      return 'This field is required';
+    }
+    return null;
+  }
+
+  String? validateTimeOfConsultation(String? value) {
     if (value!.isEmpty) {
       return 'This field is required';
     }
