@@ -204,7 +204,6 @@ class _SignupPageState extends State<SignupPage> with Validator {
                       if (state is SignUpSuccess) {
                         context.showSnackBar(message: 'Sign up successful');
                         context.go(RoutePath.tabs);
-
                       }
                     },
                     builder: (context, state) {

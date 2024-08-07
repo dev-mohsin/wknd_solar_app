@@ -20,7 +20,7 @@ class AppLightTheme extends AppTheme {
         dividerTheme: DividerThemeData(color: tertiary, thickness: .2),
         tabBarTheme: TabBarTheme(
           labelColor: primary,
-          unselectedLabelColor: onSecondary ,
+          unselectedLabelColor: onSecondary,
           indicatorSize: TabBarIndicatorSize.tab,
         ),
         dialogTheme: DialogTheme(

@@ -3,7 +3,6 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:line_icons/line_icons.dart';
 import 'package:wknd_app/config/router/route_path.dart';
 import 'package:wknd_app/core/components/app_button.dart';
 import 'package:wknd_app/core/components/app_image.dart';
@@ -12,7 +11,6 @@ import 'package:wknd_app/core/constant/app_string.dart';
 import 'package:wknd_app/core/extensions/e_context_extensions.dart';
 import 'package:wknd_app/core/mixin/validator.dart';
 import 'package:wknd_app/feature/auth/presentation/bloc/auth_bloc.dart';
-import 'package:wknd_app/feature/tabs/presentation/pages/tabs_page.dart';
 import 'package:wknd_app/gen/assets.gen.dart';
 
 class LoginPage extends StatefulWidget {
@@ -43,10 +41,11 @@ class _LoginPageState extends State<LoginPage> with Validator {
               TextSpan(
                 text: AppString.signUp,
                 style: context.titleLarge?.copyWith(fontSize: 14.0),
-                recognizer: TapGestureRecognizer()..onTap = () {
-                  debugPrint('_LoginPageState.build: ');
+                recognizer: TapGestureRecognizer()
+                  ..onTap = () {
+                    debugPrint('_LoginPageState.build: ');
                     context.push(RoutePath.signUp);
-                },
+                  },
               ),
             ],
           ),
@@ -78,7 +77,7 @@ class _LoginPageState extends State<LoginPage> with Validator {
                   autovalidateMode: AutovalidateMode.onUserInteraction,
                   controller: passwordController,
                   validator: validatePassword,
-                  decoration:  InputDecoration(
+                  decoration: InputDecoration(
                     hintText: AppString.password,
                     suffixIcon: IconButton(
                       icon: Icon(_obscureText ? CupertinoIcons.eye_slash : CupertinoIcons.eye),

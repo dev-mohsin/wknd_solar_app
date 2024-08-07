@@ -12,20 +12,13 @@ final GoRouter router = GoRouter(
     final loggingIn = state.fullPath == RoutePath.login;
     final signingUp = state.fullPath == RoutePath.signUp;
 
-    
     if (!loggedIn && !loggingIn && !signingUp) {
       return RoutePath.login;
-    } 
-    else if (loggedIn && (loggingIn || signingUp)) {
+    } else if (loggedIn && (loggingIn || signingUp)) {
       return RoutePath.tabs;
     }
     return null;
   },
-   
-     
-
-
-  
   routes: [
     GoRoute(
       path: '/',
@@ -45,19 +38,4 @@ final GoRouter router = GoRouter(
     ),
   ],
 );
-
-
-
-class AppLifecycleReactor extends WidgetsBindingObserver {
-  @override
-  void didChangeAppLifecycleState(AppLifecycleState state) {
-    if (state == AppLifecycleState.paused) {
-      _signOutUser();
-    }
-  }
-
-  void _signOutUser() async {
-    await FirebaseAuth.instance.signOut();
-  }
-}
 

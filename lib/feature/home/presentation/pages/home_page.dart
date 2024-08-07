@@ -43,10 +43,10 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
             child: TabBarView(
               controller: _tabController,
               children: [
-                ReferTab(status: "In Progress"),
-                ReferTab(status: "Contacted"),
-                ReferTab(status: "Appointment Set"),
-                ReferTab(status: "Completed"),
+                ReferCard(status: "In Progress"),
+                ReferCard(status: "Contacted"),
+                ReferCard(status: "Appointment Set"),
+                ReferCard(status: "Completed"),
               ],
             ),
           ),
@@ -56,12 +56,10 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
   }
 }
 
-
-
-
-class ReferTab extends StatelessWidget {
+class ReferCard extends StatelessWidget {
   final String status;
-  const ReferTab({Key? key, required this.status}) : super(key: key);
+
+  const ReferCard({Key? key, required this.status}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -111,15 +109,15 @@ class ReferTab extends StatelessWidget {
   Color _getCardColor(String status, BuildContext context) {
     switch (status) {
       case 'In Progress':
-        return Theme.of(context).primaryColor;
+        return context.primary;
       case 'Contacted':
         return context.tertiary;
       case 'Appointment Set':
-        return Colors.green;
+        return context.primary.withOpacity(0.5);
       case 'Completed':
-        return Colors.green;
+        return context.secondary;
       default:
-        return Theme.of(context).primaryColor;
+        return context.primary;
     }
   }
 }
