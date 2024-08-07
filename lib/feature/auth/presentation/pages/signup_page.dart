@@ -242,7 +242,7 @@ class _SignupPageState extends State<SignupPage> with Validator {
                           TextSpan(
                             text: AppString.signIn,
                             style: context.titleLarge?.copyWith(fontSize: 14.0),
-                            recognizer: TapGestureRecognizer()..onTap = () => context.go(RoutePath.login),
+                            recognizer: TapGestureRecognizer()..onTap = () => context.push(RoutePath.login),
                           ),
                         ],
                       ),

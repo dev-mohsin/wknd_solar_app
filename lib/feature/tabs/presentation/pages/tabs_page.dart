@@ -41,8 +41,8 @@ class _TabsPageState extends State<TabsPage> {
         actions: [
           IconButton(
             icon: CircleAvatar(child: Icon(LineIcons.alternateSignOut)),
-            onPressed: () {
-              FirebaseAuth.instance.signOut();
+            onPressed: () async {
+              await FirebaseAuth.instance.signOut();
               context.go(RoutePath.login);
             },
           ),

@@ -12,6 +12,7 @@ import 'package:wknd_app/core/constant/app_string.dart';
 import 'package:wknd_app/core/extensions/e_context_extensions.dart';
 import 'package:wknd_app/core/mixin/validator.dart';
 import 'package:wknd_app/feature/auth/presentation/bloc/auth_bloc.dart';
+import 'package:wknd_app/feature/tabs/presentation/pages/tabs_page.dart';
 import 'package:wknd_app/gen/assets.gen.dart';
 
 class LoginPage extends StatefulWidget {

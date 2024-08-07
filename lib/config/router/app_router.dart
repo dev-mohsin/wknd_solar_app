@@ -7,14 +7,25 @@ import 'package:wknd_app/feature/auth/presentation/pages/signup_page.dart';
 import 'package:wknd_app/feature/tabs/presentation/pages/tabs_page.dart';
 
 final GoRouter router = GoRouter(
-  redirect: (context, state) {
-    final bool loggedIn = FirebaseAuth.instance.currentUser != null;
-    if (loggedIn) {
-      return RoutePath.tabs;
-    } else {
+  redirect: (context, state) async {
+    final bool loggedIn = await FirebaseAuth.instance.currentUser != null;
+    final loggingIn = state.fullPath == RoutePath.login;
+    final signingUp = state.fullPath == RoutePath.signUp;
+
+    
+    if (!loggedIn && !loggingIn && !signingUp) {
       return RoutePath.login;
+    } 
+    else if (loggedIn && (loggingIn || signingUp)) {
+      return RoutePath.tabs;
     }
+    return null;
   },
+   
+     
+
+
+  
   routes: [
     GoRoute(
       path: '/',
@@ -34,3 +45,19 @@ final GoRouter router = GoRouter(
     ),
   ],
 );
+
+
+
+class AppLifecycleReactor extends WidgetsBindingObserver {
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.paused) {
+      _signOutUser();
+    }
+  }
+
+  void _signOutUser() async {
+    await FirebaseAuth.instance.signOut();
+  }
+}
+
