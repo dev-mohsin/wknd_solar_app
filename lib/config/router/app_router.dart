@@ -38,4 +38,3 @@ final GoRouter router = GoRouter(
     ),
   ],
 );
-

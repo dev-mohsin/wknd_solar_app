@@ -7,6 +7,7 @@ class UserModel {
   final String howMuch;
   final String refFirstName, refLastName;
   final String message;
+  final String userId;
 
 
   UserModel({
@@ -20,6 +21,7 @@ class UserModel {
     this.refFirstName = '',
     this.refLastName = '',
     this.message = '',
+    this.userId='',
   });
 
   factory UserModel.fromJson(Map<String, dynamic> json) {
@@ -34,6 +36,7 @@ class UserModel {
       refFirstName: json['refFirstName'],
       refLastName: json['refLastName'],
       message: json['message'],
+      userId:json['userId'],
     );
   }
 
@@ -49,6 +52,7 @@ class UserModel {
       'refFirstName': refFirstName,
       'refLastName': refLastName,
       'message': message,
+      'userId':userId,
     };
   }
 
@@ -63,6 +67,7 @@ class UserModel {
     String? refFirstName,
     String? refLastName,
     String? message,
+    String? userId,
   }) {
     return UserModel(
       id: id ?? this.id,
@@ -75,6 +80,7 @@ class UserModel {
       refFirstName: refFirstName ?? this.refFirstName,
       refLastName: refLastName ?? this.refLastName,
       message: message ?? this.message,
+      userId:userId ?? this.userId,
     );
   }
 }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wknd_app/core/extensions/e_context_extensions.dart';
 import 'package:wknd_app/feature/refer/presentation/bloc/refer_bloc.dart';
+import 'package:wknd_app/core/constant/app_string.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -12,12 +13,14 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin {
   late TabController _tabController;
+  late String userId;
 
   @override
   void initState() {
     super.initState();
     _tabController = TabController(length: 4, vsync: this);
-    context.read<ReferBloc>().add(FetchRefer());
+    userId=userId;
+    context.read<ReferBloc>().add(FetchRefer(userId:userId));
   }
 
   @override
@@ -33,20 +36,20 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
             tabAlignment: TabAlignment.start,
             controller: _tabController,
             tabs: const [
-              Tab(text: 'Pending'),
-              Tab(text: 'Contacted'),
-              Tab(text: 'Appointment Set'),
-              Tab(text: 'Completed'),
+              Tab(text: AppString.pending),
+              Tab(text: AppString.contacted),
+              Tab(text: AppString.appointmentset),
+              Tab(text: AppString.completed),
             ],
           ),
           Expanded(
             child: TabBarView(
               controller: _tabController,
               children: [
-                ReferCard(status: "In Progress"),
-                ReferCard(status: "Contacted"),
-                ReferCard(status: "Appointment Set"),
-                ReferCard(status: "Completed"),
+                ReferCard(status: AppString.pending),
+                ReferCard(status: AppString.contacted),
+                ReferCard(status: AppString.appointmentset),
+                ReferCard(status: AppString.completed),
               ],
             ),
           ),
@@ -108,16 +111,16 @@ class ReferCard extends StatelessWidget {
 
   Color _getCardColor(String status, BuildContext context) {
     switch (status) {
-      case 'In Progress':
-        return context.primary;
-      case 'Contacted':
+      case AppString.pending:
+        return context.onPrimary;
+      case AppString.contacted:
         return context.tertiary;
-      case 'Appointment Set':
-        return context.primary.withOpacity(0.5);
-      case 'Completed':
+      case AppString.appointmentset:
+        return context.onTertiary;
+      case AppString.completed:
         return context.secondary;
       default:
-        return context.primary;
+        return context.primaryColor;
     }
   }
 }

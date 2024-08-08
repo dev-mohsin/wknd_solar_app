@@ -38,6 +38,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         refFirstName: event.user.refFirstName,
         refLastName: event.user.refLastName,
         message: event.user.message,
+        userId: event.user.userId,
       );
       if (userCredential.user != null) {
         await _firestore.collection(AppKey.users).doc(userCredential.user!.uid).set(user.toJson());

@@ -65,7 +65,6 @@ class _SignupPageState extends State<SignupPage> with Validator {
                   ),
                   const Gap(20.0),
                   TextFormField(
-                    initialValue: 'John',
                     autovalidateMode: AutovalidateMode.onUserInteraction,
                     validator: validateFirstName,
                     onSaved: (value) => data['firstName'] = value!,
@@ -75,7 +74,6 @@ class _SignupPageState extends State<SignupPage> with Validator {
                   ),
                   const Gap(10.0),
                   TextFormField(
-                    initialValue: 'Doe',
                     autovalidateMode: AutovalidateMode.onUserInteraction,
                     validator: validateLastName,
                     onSaved: (value) => data['lastName'] = value!,
@@ -85,7 +83,6 @@ class _SignupPageState extends State<SignupPage> with Validator {
                   ),
                   const Gap(10.0),
                   TextFormField(
-                    initialValue: 'john@gmail.com',
                     autovalidateMode: AutovalidateMode.onUserInteraction,
                     validator: validateEmail,
                     onSaved: (value) => data['email'] = value!,
@@ -95,7 +92,6 @@ class _SignupPageState extends State<SignupPage> with Validator {
                   ),
                   const Gap(10.0),
                   TextFormField(
-                    initialValue: '12121212',
                     autovalidateMode: AutovalidateMode.onUserInteraction,
                     validator: validatePassword,
                     onSaved: (value) => data['password'] = value!,
@@ -105,7 +101,6 @@ class _SignupPageState extends State<SignupPage> with Validator {
                   ),
                   const Gap(10.0),
                   TextFormField(
-                    initialValue: '1234567890',
                     autovalidateMode: AutovalidateMode.onUserInteraction,
                     decoration: const InputDecoration(
                       hintText: AppString.phoneNumber,
@@ -135,7 +130,6 @@ class _SignupPageState extends State<SignupPage> with Validator {
                   ),
                   const Gap(10.0),
                   TextFormField(
-                    initialValue: '1000',
                     autovalidateMode: AutovalidateMode.onUserInteraction,
                     validator: validateFirstName,
                     onSaved: (value) => data['howMuch'] = value!,
@@ -167,7 +161,6 @@ class _SignupPageState extends State<SignupPage> with Validator {
                   ),
                   const Gap(4.0),
                   TextFormField(
-                    initialValue: 'Steve',
                     autovalidateMode: AutovalidateMode.onUserInteraction,
                     validator: validateFirstName,
                     onSaved: (value) => data['whoReferred'] = value!,
@@ -177,7 +170,6 @@ class _SignupPageState extends State<SignupPage> with Validator {
                   ),
                   const Gap(10.0),
                   TextFormField(
-                    initialValue: 'Smith',
                     autovalidateMode: AutovalidateMode.onUserInteraction,
                     validator: validateLastName,
                     onSaved: (value) => data['refFirstName'] = value!,
@@ -187,7 +179,6 @@ class _SignupPageState extends State<SignupPage> with Validator {
                   ),
                   const Gap(10.0),
                   TextFormField(
-                    initialValue: 'I was referred by Steve Smith',
                     autovalidateMode: AutovalidateMode.onUserInteraction,
                     maxLines: 4,
                     decoration: const InputDecoration(

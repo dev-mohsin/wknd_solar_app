@@ -18,6 +18,7 @@ class ReferModel {
   final String referredByPhone;
   final String referralId;
   final String status;
+  final String userId;
 
   ReferModel({
     required this.theirName,
@@ -39,6 +40,7 @@ class ReferModel {
     required this.referredByPhone,
     this.referralId = '',
     this.status = 'Pending',
+    required this.userId,
   });
 
   factory ReferModel.fromJson(Map<String, dynamic> json) {
@@ -61,6 +63,7 @@ class ReferModel {
       referredByPhone: json['referredByPhone'],
       referralId: json['referralId'],
       status: json['status'],
+      userId: json['userId'],
       theirUtilityBill: List<String>.from(json['theirUtilityBill']),
     );
   }
@@ -85,6 +88,7 @@ class ReferModel {
       'referredByPhone': referredByPhone,
       'referralId': referralId,
       'status': status,
+      'userId':userId,
       'theirUtilityBill': theirUtilityBill,
     };
   }

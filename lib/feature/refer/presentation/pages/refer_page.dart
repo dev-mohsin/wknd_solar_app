@@ -20,6 +20,8 @@ import 'package:wknd_app/core/extensions/e_context_extensions.dart';
 import 'package:wknd_app/core/mixin/validator.dart';
 import 'package:wknd_app/feature/refer/data/models/refer_model.dart';
 import 'package:wknd_app/feature/refer/presentation/bloc/refer_bloc.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+
 
 class ReferPage extends StatefulWidget {
   const ReferPage({super.key});
@@ -37,6 +39,14 @@ class _ReferPageState extends State<ReferPage> with Validator {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   List<double> uploadProgress = [];
   List<String> filePaths = [];
+  String userId=FirebaseAuth.instance.currentUser?.uid?? 'default_user_id';
+
+   @override
+  void initState() {
+    super.initState();
+    context.read<ReferBloc>().add(FetchRefer(userId: userId));
+  }
+  
 
   // Define the base path in Firebase storage
   final String firebaseBasePath = 'uploads/';
@@ -159,7 +169,6 @@ class _ReferPageState extends State<ReferPage> with Validator {
                 Center(child: Text(AppString.takeFirstStep, style: context.labelLarge?.copyWith(fontSize: 14.0))),
                 const Gap(10.0),
                 TextFormField(
-                  initialValue: 'John wick',
                   decoration: InputDecoration(hintText: AppString.theirName),
                   validator: validateTheirName,
                   onSaved: (value) => _referLIst['theirName'] = value!,
@@ -167,7 +176,6 @@ class _ReferPageState extends State<ReferPage> with Validator {
                 ),
                 const Gap(10.0),
                 TextFormField(
-                  initialValue: 'john@gmail.com',
                   decoration: InputDecoration(hintText: AppString.theirEmail),
                   validator: validateTheirEmail,
                   onSaved: (value) => _referLIst['theirEmail'] = value!,
@@ -175,7 +183,6 @@ class _ReferPageState extends State<ReferPage> with Validator {
                 ),
                 const Gap(10.0),
                 TextFormField(
-                  initialValue: '12345678908',
                   decoration: InputDecoration(hintText: AppString.theirPhoneNumber),
                   validator: validateTheirPhoneNumber,
                   onSaved: (value) => _referLIst['theirPhoneNumber'] = value!,
@@ -211,7 +218,6 @@ class _ReferPageState extends State<ReferPage> with Validator {
                 ),
                 const Gap(10.0),
                 TextFormField(
-                  initialValue: '1234',
                   onSaved: (value) => _referLIst['addressLine1'] = value!,
                   decoration: InputDecoration(hintText: AppString.addressLine1),
                   validator: validateAddressLine1,
@@ -219,7 +225,6 @@ class _ReferPageState extends State<ReferPage> with Validator {
                 ),
                 const Gap(10.0),
                 TextFormField(
-                  initialValue: '1234',
                   decoration: InputDecoration(hintText: AppString.addressLine2),
                   onSaved: (value) => _referLIst['addressLine2'] = value!,
                 ),
@@ -228,7 +233,6 @@ class _ReferPageState extends State<ReferPage> with Validator {
                   children: [
                     Expanded(
                       child: TextFormField(
-                        initialValue: 'Lahore',
                         decoration: InputDecoration(hintText: AppString.city),
                         validator: validateCity,
                         onSaved: (value) => _referLIst['city'] = value!,
@@ -238,7 +242,6 @@ class _ReferPageState extends State<ReferPage> with Validator {
                     const Gap(10.0),
                     Expanded(
                       child: TextFormField(
-                        initialValue: 'Punjab',
                         onSaved: (value) => _referLIst['state'] = value!,
                         decoration: InputDecoration(hintText: AppString.state),
                         validator: validateState,
@@ -248,7 +251,6 @@ class _ReferPageState extends State<ReferPage> with Validator {
                     const Gap(10.0),
                     Expanded(
                       child: TextFormField(
-                        initialValue: '1234',
                         onSaved: (value) => _referLIst['zipCode'] = value!,
                         decoration: InputDecoration(hintText: AppString.zipCode),
                         validator: validateZipCode,
@@ -315,7 +317,6 @@ class _ReferPageState extends State<ReferPage> with Validator {
                 ),
                 const Gap(10.0),
                 TextFormField(
-                  initialValue: 'Notes',
                   maxLines: 4,
                   autovalidateMode: AutovalidateMode.onUserInteraction,
                   validator: validateNotes,
@@ -401,7 +402,6 @@ class _ReferPageState extends State<ReferPage> with Validator {
                   children: [
                     Expanded(
                       child: TextFormField(
-                        initialValue: 'John',
                         onSaved: (value) => _referLIst['firstName'] = value!,
                         decoration: InputDecoration(hintText: AppString.firstName),
                         validator: validateFirstName,
@@ -411,7 +411,6 @@ class _ReferPageState extends State<ReferPage> with Validator {
                     const Gap(10.0),
                     Expanded(
                       child: TextFormField(
-                        initialValue: 'Doe',
                         onSaved: (value) => _referLIst['lastName'] = value!,
                         decoration: InputDecoration(hintText: AppString.lastName),
                         validator: validateLastName,
@@ -422,7 +421,6 @@ class _ReferPageState extends State<ReferPage> with Validator {
                 ),
                 const Gap(10.0),
                 TextFormField(
-                  initialValue: '12345678908',
                   onSaved: (value) => _referLIst['phoneNumber'] = value!,
                   validator: validatePhoneNumber,
                   autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -462,37 +460,35 @@ class _ReferPageState extends State<ReferPage> with Validator {
                         }
                         _formKey.currentState!.save();
 
-
-                          debugPrint('_ReferPageState.build: if $_referLIst');
-                          final refer = ReferModel(
-                            theirName: _referLIst['theirName'] ?? '',
-                            theirEmail: _referLIst['theirEmail'] ?? '',
-                            theirPhone: _referLIst['theirPhoneNumber'] ?? '',
-                            theirCountry: country ?? '',
-                            theirAddress1: _referLIst['addressLine1'] ?? '',
-                            theirAddress2: _referLIst['addressLine2'] ?? '',
-                            theirCity: _referLIst['city'] ?? '',
-                            theirState: _referLIst['state'] ?? '',
-                            theirZipCode: _referLIst['zipCode'] ?? '',
-                            theirUtilityBill: filePaths,
-                            theirNotes: _referLIst['notes'] ?? '',
-                            areTheyHomeOwner: _selectedValue == AppString.yes ? "true" : "false",
-                            dateOfConsultation: selectedDate.toString(),
-                            timeOfConsultation: selectedTime.toString(),
-                            referredByFirstName: _referLIst['firstName'] ?? '',
-                            referredByLastName: _referLIst['lastName'] ?? '',
-                            referredByPhone: _referLIst['phoneNumber'] ?? '',
-                            referralId: referralId,
-                            status: 'Pending',
-
-                          );
-                          try {
-                            context.read<ReferBloc>().add(OnRefer(refer: refer));
-                          } catch (e) {
-                            // Handle potential errors here
-                            context.showSnackBar(message: 'An error occurred: $e');
-                          }
-
+                        debugPrint('_ReferPageState.build: if $_referLIst');
+                        final refer = ReferModel(
+                          theirName: _referLIst['theirName'] ?? '',
+                          theirEmail: _referLIst['theirEmail'] ?? '',
+                          theirPhone: _referLIst['theirPhoneNumber'] ?? '',
+                          theirCountry: country ?? '',
+                          theirAddress1: _referLIst['addressLine1'] ?? '',
+                          theirAddress2: _referLIst['addressLine2'] ?? '',
+                          theirCity: _referLIst['city'] ?? '',
+                          theirState: _referLIst['state'] ?? '',
+                          theirZipCode: _referLIst['zipCode'] ?? '',
+                          theirUtilityBill: filePaths,
+                          theirNotes: _referLIst['notes'] ?? '',
+                          areTheyHomeOwner: _selectedValue == AppString.yes ? "true" : "false",
+                          dateOfConsultation: selectedDate.toString(),
+                          timeOfConsultation: selectedTime.toString(),
+                          referredByFirstName: _referLIst['firstName'] ?? '',
+                          referredByLastName: _referLIst['lastName'] ?? '',
+                          referredByPhone: _referLIst['phoneNumber'] ?? '',
+                          referralId: referralId,
+                          status: 'Pending',
+                          userId: userId,
+                        );
+                        try {
+                          context.read<ReferBloc>().add(OnRefer(refer: refer));
+                        } catch (e) {
+                          // Handle potential errors here
+                          context.showSnackBar(message: 'An error occurred: $e');
+                        }
                       },
                       child: Text(AppString.submit),
                     );
