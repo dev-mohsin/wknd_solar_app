@@ -88,7 +88,7 @@ class ReferModel {
       'referredByPhone': referredByPhone,
       'referralId': referralId,
       'status': status,
-      'userId':userId,
+      'userId': userId,
       'theirUtilityBill': theirUtilityBill,
     };
   }

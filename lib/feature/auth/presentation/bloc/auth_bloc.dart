@@ -45,6 +45,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       }
       emit(SignUpSuccess(user));
     } on FirebaseAuthException catch (e, s) {
+      debugPrint('AuthBloc._onSignup: ' + e.toString() + ' stack: ' + s.toString());
       String message = 'Failed to register';
       switch (e.code) {
         case 'invalid-email':
@@ -77,7 +78,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         email: event.email,
         password: event.password,
       );
-      final DocumentSnapshot<Map<String, dynamic>> userDoc = await _firestore.collection(AppKey.users).doc(userCredential.user!.uid).get();
+      final DocumentSnapshot<Map<String, dynamic>> userDoc = await _firestore.collection(AppKey.users).doc(userCredential.user?.uid).get();
       final UserModel user = UserModel.fromJson(userDoc.data()!);
       emit(SignInSuccess(user));
     } on FirebaseAuthException catch (e, s) {

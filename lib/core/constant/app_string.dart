@@ -48,11 +48,10 @@ class AppString {
   static const String gallery = 'Gallery';
   static const String camera = 'Camera';
   static const String pdf = 'PDF';
-  static const String pending='pending';
-  static const String contacted='contacted';
-  static const String appointmentset='Appointment-set';
-  static const String completed='completed';
+  static const String pending = 'Pending';
+  static const String contacted = 'Contacted';
+  static const String appointment = 'Appointment';
+  static const String completed = 'Completed';
 
   static String yourName = 'Your Name';
-
 }

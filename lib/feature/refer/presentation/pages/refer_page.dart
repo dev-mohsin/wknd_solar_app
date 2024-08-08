@@ -11,6 +11,7 @@ import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:uuid/uuid.dart';
+import 'package:wknd_app/config/router/route_path.dart';
 import 'package:wknd_app/core/components/app_button.dart';
 import 'package:wknd_app/core/components/app_image_picker.dart';
 import 'package:wknd_app/core/components/gap.dart';
@@ -21,7 +22,6 @@ import 'package:wknd_app/core/mixin/validator.dart';
 import 'package:wknd_app/feature/refer/data/models/refer_model.dart';
 import 'package:wknd_app/feature/refer/presentation/bloc/refer_bloc.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-
 
 class ReferPage extends StatefulWidget {
   const ReferPage({super.key});
@@ -39,14 +39,13 @@ class _ReferPageState extends State<ReferPage> with Validator {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   List<double> uploadProgress = [];
   List<String> filePaths = [];
-  String userId=FirebaseAuth.instance.currentUser?.uid?? 'default_user_id';
+  String userId = FirebaseAuth.instance.currentUser?.uid ?? 'default_user_id';
 
-   @override
+  @override
   void initState() {
     super.initState();
-    context.read<ReferBloc>().add(FetchRefer(userId: userId));
+    context.read<ReferBloc>().add(FetchRefer());
   }
-  
 
   // Define the base path in Firebase storage
   final String firebaseBasePath = 'uploads/';
@@ -153,6 +152,7 @@ class _ReferPageState extends State<ReferPage> with Validator {
 
   @override
   Widget build(BuildContext context) {
+    debugPrint('_ReferPageState.build: userId: $userId');
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -431,6 +431,7 @@ class _ReferPageState extends State<ReferPage> with Validator {
                   listener: (context, state) {
                     if (state is ReferCreatedSuccess) {
                       context.showSnackBar(message: state.message);
+                      context.go(RoutePath.tabs);
                     } else if (state is ReferFailure) {
                       context.showSnackBar(message: 'Refer Failure');
                     }

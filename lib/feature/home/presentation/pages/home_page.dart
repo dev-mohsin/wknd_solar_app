@@ -13,14 +13,12 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin {
   late TabController _tabController;
-  late String userId;
 
   @override
   void initState() {
     super.initState();
     _tabController = TabController(length: 4, vsync: this);
-    userId=userId;
-    context.read<ReferBloc>().add(FetchRefer(userId:userId));
+    context.read<ReferBloc>().add(FetchRefer());
   }
 
   @override
@@ -38,7 +36,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
             tabs: const [
               Tab(text: AppString.pending),
               Tab(text: AppString.contacted),
-              Tab(text: AppString.appointmentset),
+              Tab(text: AppString.appointment),
               Tab(text: AppString.completed),
             ],
           ),
@@ -48,7 +46,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
               children: [
                 ReferCard(status: AppString.pending),
                 ReferCard(status: AppString.contacted),
-                ReferCard(status: AppString.appointmentset),
+                ReferCard(status: AppString.appointment),
                 ReferCard(status: AppString.completed),
               ],
             ),
@@ -115,7 +113,7 @@ class ReferCard extends StatelessWidget {
         return context.onPrimary;
       case AppString.contacted:
         return context.tertiary;
-      case AppString.appointmentset:
+      case AppString.appointment:
         return context.onTertiary;
       case AppString.completed:
         return context.secondary;

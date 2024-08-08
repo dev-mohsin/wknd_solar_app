@@ -9,10 +9,6 @@ final class OnRefer extends ReferEvent {
   OnRefer({required this.refer});
 }
 
- class FetchRefer extends ReferEvent {
-  final String userId;
+class FetchRefer extends ReferEvent {}
 
-  FetchRefer({required this.userId});
-}
-
-class FetchUserId extends ReferEvent{}
+class FetchUserId extends ReferEvent {}

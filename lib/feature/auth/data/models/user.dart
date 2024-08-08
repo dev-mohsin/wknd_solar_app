@@ -9,7 +9,6 @@ class UserModel {
   final String message;
   final String userId;
 
-
   UserModel({
     this.id = '',
     this.email = '',
@@ -21,22 +20,22 @@ class UserModel {
     this.refFirstName = '',
     this.refLastName = '',
     this.message = '',
-    this.userId='',
+    this.userId = '',
   });
 
   factory UserModel.fromJson(Map<String, dynamic> json) {
     return UserModel(
-      id: json['id'],
-      email: json['email'],
-      firstName: json['firstName'],
-      lastName: json['lastName'],
-      phoneNumber: json['phoneNumber'],
-      serviceType: ServiceType.values[json['serviceType']],
+      id: json['id'] ?? '',
+      email: json['email'] ?? '',
+      firstName: json['firstName'] ?? '',
+      lastName: json['lastName']  ?? '',
+      phoneNumber: json['phoneNumber'] ,
+      serviceType: ServiceType.values[json['serviceType']] ,
       howMuch: json['howMuch'],
       refFirstName: json['refFirstName'],
       refLastName: json['refLastName'],
       message: json['message'],
-      userId:json['userId'],
+      userId: json['userId'] ?? ''
     );
   }
 
@@ -52,7 +51,7 @@ class UserModel {
       'refFirstName': refFirstName,
       'refLastName': refLastName,
       'message': message,
-      'userId':userId,
+      'userId': userId,
     };
   }
 
@@ -80,7 +79,7 @@ class UserModel {
       refFirstName: refFirstName ?? this.refFirstName,
       refLastName: refLastName ?? this.refLastName,
       message: message ?? this.message,
-      userId:userId ?? this.userId,
+      userId: userId ?? this.userId,
     );
   }
 }
